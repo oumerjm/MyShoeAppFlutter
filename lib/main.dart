@@ -31,6 +31,36 @@ class ProductDetailPage extends StatefulWidget {
 class _ProductDetailPageState extends State<ProductDetailPage> {
   @override
   Widget build(BuildContext context) {
-    return  Placeholder();
+    return  Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Column(
+        children: [
+          Placeholder(fallbackHeight: 80,),
+          Expanded(
+            
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Placeholder(),
+                  SizedBox(height: 20,),
+                  Column(
+                    children: [
+                      Placeholder(),
+                      SizedBox(height: 20,),
+                      Placeholder(),
+                      SizedBox(height: 20,),
+                      Placeholder()
+                    ],
+                  )
+                ],
+              ),
+            )),
+          Expanded(child: Placeholder(fallbackHeight: 70,))
+        ],  
+      )),
+    );
   }
 }
