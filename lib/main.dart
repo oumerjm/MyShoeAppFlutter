@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoe_app_flutter/constants.dart';
-import 'ShoeStack.dart';
+// import 'ShoeStack.dart';
 
 void main() {
   runApp(const ShoeApp());
@@ -114,7 +114,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           // ── Swipeable images ──────────────────
                           PageView.builder(
                             physics: const BouncingScrollPhysics(),
-                            itemCount: 5,
+                            itemCount: 3,
                             onPageChanged: (i) =>
                                 setState(() => _currentPage = i),
                             itemBuilder: (context, index) {
@@ -124,7 +124,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   horizontal: 24,
                                 ),
                                 child: Image.asset(
-                                  'assets/images/NikeImages($imageNumber).png',
+                                  'images/NikeImage$imageNumber.png',
                                   fit: BoxFit.contain,
                                 ),
                               );
@@ -150,7 +150,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   decoration: BoxDecoration(
                                     color: active
                                         ? kDark
-                                        : kGrey.withOpacity(0.35),
+                                        : kGrey.withValues(alpha: 0.34),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                 );
