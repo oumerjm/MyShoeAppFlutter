@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoe_app_flutter/constants.dart';
+import 'ShoeStack.dart';
 
 void main() {
   runApp(const ShoeApp());
@@ -28,6 +29,7 @@ class ProductDetailPage extends StatefulWidget {
 }
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
+  int _currentPage = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,7 +107,59 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Placeholder(fallbackHeight: 260, color: Colors.blue),
+                    SizedBox(
+                      height: 260,
+                      child: Stack(
+                        children: [
+                          // ── Swipeable images ──────────────────
+                          PageView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: 5,
+                            onPageChanged: (i) =>
+                                setState(() => _currentPage = i),
+                            itemBuilder: (context, index) {
+                              int imageNumber = index + 1;
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 24,
+                                ),
+                                child: Image.asset(
+                                  'assets/images/NikeImages($imageNumber).png',
+                                  fit: BoxFit.contain,
+                                ),
+                              );
+                            },
+                          ),
+
+                          // ── Dot indicators ────────────────────
+                          Positioned(
+                            bottom: 10,
+                            left: 0,
+                            right: 0,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: List.generate(5, (i) {
+                                final active = i == _currentPage;
+                                return AnimatedContainer(
+                                  duration: const Duration(milliseconds: 250),
+                                  margin: const EdgeInsets.symmetric(
+                                    horizontal: 3,
+                                  ),
+                                  width: active ? 22 : 7,
+                                  height: 7,
+                                  decoration: BoxDecoration(
+                                    color: active
+                                        ? kDark
+                                        : kGrey.withOpacity(0.35),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                );
+                              }),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -124,7 +178,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 ),
               ),
             ),
-            Placeholder(fallbackHeight: 70),
+            Placeholder(fallbackHeight: 70, color: Colors.amber),
           ],
         ),
       ),
