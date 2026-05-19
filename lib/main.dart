@@ -30,6 +30,9 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   int _currentPage = 0;
+  final List<String> _sizes = ['5', '5.5', '6', '6.6', '7', '7.5', '8'];
+  int _selectedSizeIndex = 1;
+  int _selectedUnitIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +42,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           children: [
             //top navbar
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 30),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -165,11 +168,194 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
                         children: [
-                          Placeholder(fallbackHeight: 70),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Men's Shoe",
+                                    style: TextStyle(
+                                      color: kGrey,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.star_rounded,
+                                        color: kOrange,
+                                        size: 18,
+                                      ),
+                                      SizedBox(width: 3),
+                                      Text(
+                                        "(4.5)",
+                                        style: TextStyle(
+                                          color: kGrey,
+                                          fontSize: 13,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 6),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Nike Air Max",
+                                    style: TextStyle(
+                                      fontSize: 28,
+                                      color: kDark,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                  Text(
+                                    "\$290.00",
+                                    style: TextStyle(
+                                      color: kDark,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                           SizedBox(height: 20),
-                          Placeholder(fallbackHeight: 90),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // ── Label row: "Size:" + US UK EU ────
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Size:",
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                      color: kDark,
+                                    ),
+                                  ),
+                                  Row(
+                                    children: List.generate(3, (i) {
+                                      final units = ['US', 'UK', 'EU'];
+                                      final active = i == _selectedUnitIndex;
+                                      return GestureDetector(
+                                        onTap: () => setState(
+                                          () => _selectedUnitIndex = i,
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                            left: 14,
+                                          ),
+                                          child: Text(
+                                            units[i],
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                              color: active ? kDark : kGrey,
+                                              decoration: active
+                                                  ? TextDecoration.underline
+                                                  : null,
+                                              decorationColor: kDark,
+                                              decorationThickness: 1.5,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    }),
+                                  ),
+                                ],
+                              ),
+
+                              SizedBox(height: 14),
+
+                              // ── Size chips ────────────────────────
+                              SizedBox(
+                                height: 52,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: _sizes.length,
+                                  itemBuilder: (context, i) {
+                                    final selected = i == _selectedSizeIndex;
+                                    return GestureDetector(
+                                      onTap: () => setState(
+                                        () => _selectedSizeIndex = i,
+                                      ),
+                                      child: AnimatedContainer(
+                                        duration: const Duration(
+                                          milliseconds: 200,
+                                        ),
+                                        margin: const EdgeInsets.only(
+                                          right: 10,
+                                        ),
+                                        width: 54,
+                                        height: 54,
+                                        decoration: BoxDecoration(
+                                          color: selected
+                                              ? kOrange
+                                              : Colors.white,
+                                          borderRadius: BorderRadius.circular(
+                                            13,
+                                          ),
+                                          border: Border.all(
+                                            color: selected
+                                                ? kOrange
+                                                : const Color(0xFFDDDDDD),
+                                            width: 1.5,
+                                          ),
+                                        ),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          _sizes[i],
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600,
+                                            color: selected
+                                                ? Colors.white
+                                                : kDark,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
                           SizedBox(height: 20),
-                          Placeholder(fallbackHeight: 120),
+                          Column(
+                            children: [
+                              InkWell(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: 16),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("data", 
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                      color: kDark
+                                    ) ,
+                                    ),
+                                    Icon(
+                                      Icons.keyboard_arrow_down_rounded,
+                                      color: kDark,)
+                                  ],
+                                ),
+                                ),
+                            ),
+                            ]
+                            
+                          ),
                           SizedBox(height: 100),
                         ],
                       ),
