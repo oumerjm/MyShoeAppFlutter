@@ -31,8 +31,13 @@ class ProductDetailPage extends StatefulWidget {
 class _ProductDetailPageState extends State<ProductDetailPage> {
   int _currentPage = 0;
   final List<String> _sizes = ['5', '5.5', '6', '6.6', '7', '7.5', '8'];
+
   int _selectedSizeIndex = 1;
   int _selectedUnitIndex = 0;
+
+  bool _descExpanded = false;
+  bool _deliveryExpanded = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,7 +119,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       height: 260,
                       child: Stack(
                         children: [
-                          // ── Swipeable images ──────────────────
+                          
                           PageView.builder(
                             physics: const BouncingScrollPhysics(),
                             itemCount: 3,
@@ -134,7 +139,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             },
                           ),
 
-                          // ── Dot indicators ────────────────────
+                          
                           Positioned(
                             bottom: 10,
                             left: 0,
@@ -230,7 +235,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // ── Label row: "Size:" + US UK EU ────
+                              
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -261,23 +266,22 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                               fontSize: 14,
                                               fontWeight: FontWeight.w600,
                                               color: active ? kDark : kGrey,
-                                              decoration: active
-                                                  ? TextDecoration.underline
-                                                  : null,
+                                              decoration: active   ? TextDecoration.underline: null      ,
                                               decorationColor: kDark,
                                               decorationThickness: 1.5,
                                             ),
                                           ),
                                         ),
                                       );
-                                    }),
+                                    }
+                                    ),
                                   ),
                                 ],
                               ),
 
                               SizedBox(height: 14),
 
-                              // ── Size chips ────────────────────────
+                              
                               SizedBox(
                                 height: 52,
                                 child: ListView.builder(
@@ -333,28 +337,133 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           SizedBox(height: 20),
                           Column(
                             children: [
-                              InkWell(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 16),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("data", 
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
-                                      color: kDark
-                                    ) ,
+                              Divider(
+                                height: 1,
+                                thickness: 1,
+                                color: Color(0xFFF0F0F0),
+                              ),
+
+                              // ── Description accordion ─────────────
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  InkWell(
+                                    onTap: () => setState(
+                                      () => _descExpanded = !_descExpanded,
                                     ),
-                                    Icon(
-                                      Icons.keyboard_arrow_down_rounded,
-                                      color: kDark,)
-                                  ],
-                                ),
-                                ),
-                            ),
-                            ]
-                            
+                                    splashColor: Colors.transparent,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 16,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Description',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w600,
+                                              color: kDark,
+                                            ),
+                                          ),
+                                          Icon(
+                                            _descExpanded
+                                                ? Icons
+                                                      .keyboard_arrow_up_rounded
+                                                : Icons
+                                                      .keyboard_arrow_down_rounded,
+                                            color: kDark,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  if (_descExpanded)
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        bottom: 14,
+                                      ),
+                                      child: Text(
+                                        'The Nike Air Max SC is crafted with synthetic leather and mesh for durability and breathability. The foam midsole adds lightweight cushioning for all-day comfort.',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          color: kGrey,
+                                          height: 1.65,
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ),
+
+                              Divider(
+                                height: 1,
+                                thickness: 1,
+                                color: Color(0xFFF0F0F0),
+                              ),
+
+                              // ── Free Delivery accordion ───────────
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  InkWell(
+                                    onTap: () => setState(
+                                      () => _deliveryExpanded =
+                                          !_deliveryExpanded,
+                                    ),
+                                    splashColor: Colors.transparent,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 16,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Free Delivery and Returns',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w600,
+                                              color: kDark,
+                                            ),
+                                          ),
+                                          Icon(
+                                            _deliveryExpanded
+                                                ? Icons
+                                                      .keyboard_arrow_up_rounded
+                                                : Icons
+                                                      .keyboard_arrow_down_rounded,
+                                            color: kDark,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  if (_deliveryExpanded)
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                        bottom: 14,
+                                      ),
+                                      child: Text(
+                                        'Free standard delivery on orders over \$50. Easy free returns within 30 days of purchase.',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          color: kGrey,
+                                          height: 1.65,
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ),
+
+                              Divider(
+                                height: 1,
+                                thickness: 1,
+                                color: Color(0xFFF0F0F0),
+                              ),
+                            ],
                           ),
                           SizedBox(height: 100),
                         ],
@@ -364,7 +473,54 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 ),
               ),
             ),
-            Placeholder(fallbackHeight: 70, color: Colors.amber),
+            Container(
+              padding: EdgeInsets.fromLTRB(20, 14, 20, 22),
+              decoration: BoxDecoration(
+                border: Border(top: BorderSide(color: Color(0xFFF0F0F0))),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 52,
+                    height: 52,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(13),
+                      border: Border.all(color: Color(0xFFDDDDDD), width: 1.5),
+                    ),
+                    child: Icon(
+                      Icons.bookmark_border_rounded,
+                      color: kDark,
+                      size: 22,
+                    ),
+                  ),
+                  SizedBox(width: 14,),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        
+                      },
+                      child: Container(
+                        height: 54,
+                        
+                        decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(14),
+                        color: kDark,
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Add to Cart",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
