@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoe_app_flutter/constants.dart';
+import 'cart_Screen.dart';
 // import 'ShoeStack.dart';
 
 void main() {
@@ -52,9 +53,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                    onTap: () {
-                      print("ouch!!");
-                    },
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const CartScreen()),
+                    ),
                     child: Icon(
                       Icons.arrow_back_ios_new_rounded,
                       color: kDark,
@@ -116,13 +118,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 260,
+                      height: 230,
                       child: Stack(
                         children: [
-                          
                           PageView.builder(
                             physics: const BouncingScrollPhysics(),
-                            itemCount: 3,
+                            itemCount: 5,
                             onPageChanged: (i) =>
                                 setState(() => _currentPage = i),
                             itemBuilder: (context, index) {
@@ -132,14 +133,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                   horizontal: 24,
                                 ),
                                 child: Image.asset(
-                                  'images/NikeImage$imageNumber.png',
+                                  'assets/images/NikeImage$imageNumber.png',
                                   fit: BoxFit.contain,
                                 ),
                               );
                             },
                           ),
 
-                          
                           Positioned(
                             bottom: 10,
                             left: 0,
@@ -235,7 +235,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -266,22 +265,22 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                               fontSize: 14,
                                               fontWeight: FontWeight.w600,
                                               color: active ? kDark : kGrey,
-                                              decoration: active   ? TextDecoration.underline: null      ,
+                                              decoration: active
+                                                  ? TextDecoration.underline
+                                                  : null,
                                               decorationColor: kDark,
                                               decorationThickness: 1.5,
                                             ),
                                           ),
                                         ),
                                       );
-                                    }
-                                    ),
+                                    }),
                                   ),
                                 ],
                               ),
 
                               SizedBox(height: 14),
 
-                              
                               SizedBox(
                                 height: 52,
                                 child: ListView.builder(
@@ -493,18 +492,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       size: 22,
                     ),
                   ),
-                  SizedBox(width: 14,),
+                  SizedBox(width: 14),
                   Expanded(
                     child: GestureDetector(
-                      onTap: () {
-                        
-                      },
+                      onTap: () {},
                       child: Container(
                         height: 54,
-                        
+
                         decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        color: kDark,
+                          borderRadius: BorderRadius.circular(14),
+                          color: kDark,
                         ),
                         alignment: Alignment.center,
                         child: Text(
@@ -512,7 +509,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
-                            fontWeight: FontWeight.w700
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
