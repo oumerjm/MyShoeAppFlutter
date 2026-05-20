@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shoe_app_flutter/constants.dart';
+import 'package:shoe_app_flutter/widgets.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -9,27 +10,27 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-final List<Map<String, dynamic>> _items = [
+  final List<Map<String, dynamic>> _items = [
     {
       'name': 'Nike Air Max',
       'price': 290.00,
       'qty': 1,
       'bookmarked': true,
-      'image': 'assets/images/NikeImage1.png',  
+      'image': 'assets/images/NikeImage1.png',
     },
     {
       'name': 'Nike Wmns',
       'price': 290.00,
       'qty': 1,
       'bookmarked': false,
-      'image': 'assets/images/NikeImage2.png',  
+      'image': 'assets/images/NikeImage2.png',
     },
     {
       'name': 'Nike Flyknit 3',
       'price': 290.00,
       'qty': 1,
       'bookmarked': true,
-      'image': 'assets/images/NikeImage3.png',  
+      'image': 'assets/images/NikeImage3.png',
     },
   ];
 
@@ -44,7 +45,6 @@ final List<Map<String, dynamic>> _items = [
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             // ── Top nav ───────────────────────────
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -117,7 +117,6 @@ final List<Map<String, dynamic>> _items = [
 
             // ── Total + Checkout ──────────────────
             _buildCheckoutBar(),
-
           ],
         ),
       ),
@@ -161,7 +160,6 @@ final List<Map<String, dynamic>> _items = [
         ),
         child: Row(
           children: [
-
             // ── Shoe image ──────────────────────
             Container(
               width: 82,
@@ -172,10 +170,7 @@ final List<Map<String, dynamic>> _items = [
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(14),
-                child: Image.asset(
-                  item['image'],
-                  fit: BoxFit.contain,
-                ),
+                child: Image.asset(item['image'], fit: BoxFit.contain),
               ),
             ),
 
@@ -186,7 +181,6 @@ final List<Map<String, dynamic>> _items = [
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   // name + bookmark
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -201,7 +195,8 @@ final List<Map<String, dynamic>> _items = [
                       ),
                       GestureDetector(
                         onTap: () => setState(
-                            () => item['bookmarked'] = !item['bookmarked']),
+                          () => item['bookmarked'] = !item['bookmarked'],
+                        ),
                         child: Icon(
                           item['bookmarked']
                               ? Icons.bookmark_rounded
@@ -231,25 +226,12 @@ final List<Map<String, dynamic>> _items = [
                   Row(
                     children: [
                       // minus button
-                      GestureDetector(
+                      QtyButton(
+                        icon: Icons.remove,
+                        filled: false,
                         onTap: () {
-                          if (item['qty'] > 1) {
-                            setState(() => item['qty']--);
-                          }
+                          if (item['qty'] > 1) setState(() => item['qty']--);
                         },
-                        child: Container(
-                          width: 30,
-                          height: 30,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                            border: Border.all(
-                              color: const Color(0xFFDDDDDD),
-                              width: 1.5,
-                            ),
-                          ),
-                          child: const Icon(Icons.remove, size: 16, color: kDark),
-                        ),
                       ),
 
                       // quantity number
@@ -265,26 +247,16 @@ final List<Map<String, dynamic>> _items = [
                         ),
                       ),
 
-                      // plus button
-                      GestureDetector(
+                      QtyButton(
+                        icon: Icons.add,
+                        filled: true,
                         onTap: () => setState(() => item['qty']++),
-                        child: Container(
-                          width: 30,
-                          height: 30,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: kOrange,
-                          ),
-                          child: const Icon(Icons.add, size: 16, color: Colors.white),
-                        ),
                       ),
                     ],
                   ),
-
                 ],
               ),
             ),
-
           ],
         ),
       ),
@@ -301,7 +273,6 @@ final List<Map<String, dynamic>> _items = [
       ),
       child: Column(
         children: [
-
           // total row
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -348,7 +319,6 @@ final List<Map<String, dynamic>> _items = [
               ),
             ),
           ),
-
         ],
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'constants.dart';
 import 'cart_Screen.dart';
+import 'widgets.dart';
 
 class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({super.key});
@@ -33,17 +34,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  GestureDetector(
-                    onTap: () => Navigator.push(
+                  CircleBackButton(onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(builder: (_) => const CartScreen()),
                     ),
-                    child: Icon(
-                      Icons.arrow_back_ios_new_rounded,
-                      color: kDark,
-                      size: 20,
                     ),
-                  ),
                   
                   SvgPicture.network(
                     'https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg',
